@@ -101,6 +101,10 @@ namespace Winform
             string filtro;
             try
             {
+                if(validarFiltro())
+                {
+                    return;
+                }
                 campo = cboCampo.SelectedItem.ToString();
                 criterio = cboCriterio.SelectedItem.ToString();
                 filtro = txtFiltro.Text;
@@ -110,7 +114,97 @@ namespace Winform
             catch (Exception ex)
             {
 
-                throw ex;
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private bool validarFiltro()
+        {
+            if(cboCampo.SelectedIndex < 0)
+            {
+                MessageBox.Show("Elija un campo para filtrar");
+                return true;
+            }
+            if(cboCriterio.SelectedIndex <0)
+            {
+                MessageBox.Show("Elija un criterio para filtrar");
+                return true;
+            }
+            if(cboCampo.SelectedItem.ToString() == "Precio")
+            {
+                if(string.IsNullOrEmpty(txtFiltro.Text))
+                {
+                    MessageBox.Show("Escriba en el filtro");
+                    return true;
+                }
+                if(!(SoloNumeros(txtFiltro.Text)))
+                {
+                    MessageBox.Show("Solo Número en campo precio");
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private bool SoloNumeros(string cadena)
+        {
+            foreach (char caracter  in cadena)
+            {
+                if(!(char.IsNumber(caracter)))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private void btnRecargar_Click(object sender, EventArgs e)
+        {
+            cargar();
+        }
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            Form2 aux = new Form2();
+            aux.ShowDialog();
+            cargar();
+        }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            Articulo seleccionado;
+            try
+            {
+                seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+                Form2 aux = new Form2(seleccionado);
+                aux.ShowDialog();
+                cargar();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            ArticuloNegocio negocio = new ArticuloNegocio();
+            Articulo seleccionado;
+            try
+            {
+                DialogResult respuesta = MessageBox.Show("¿Desea eliminar?","Eliminar",MessageBoxButtons.YesNo,MessageBoxIcon.Warning);
+                if(respuesta == DialogResult.Yes)
+                {
+                    seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+                    negocio.eliminar(seleccionado.Id);
+                    cargar();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
             }
         }
     }
