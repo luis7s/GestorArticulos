@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Winform
 {
@@ -49,23 +50,34 @@ namespace Winform
                 articulo.Categoria = (Categoria)cboCategoria.SelectedItem;
                 articulo.Precio = decimal.Parse(txtPrecio.Text);
 
-                if(articulo.Id != 0)
+                if(txtCodigo.BackColor != Color.Red)
                 {
-                    negocio.modificar(articulo);
+                    if (articulo.Id != 0)
+                    {
+
+                        negocio.modificar(articulo);
+                        Close();
+                    }
+                    else
+                    {
+                        negocio.agregar(articulo);
+
+                        Close();
+                    }
                 }
                 else
                 {
-                    negocio.agregar(articulo);
+                    MessageBox.Show("Ingrese datos obligatorios");
                 }
-                
 
-                Close();
-            
+
+
             }
-            catch (Exception ex)
+            catch (Exception)
             {
+                txtPrecio.BackColor = Color.Red;
+                MessageBox.Show("Ingrese datos obligatorios");
 
-                throw ex;
             }
         }
 
@@ -119,6 +131,37 @@ namespace Winform
         private void txtUrlImagen_Leave(object sender, EventArgs e)
         {
             cargarImagen(txtUrlImagen.Text);
+        }
+        
+        private void txtPrecio_Leave(object sender, EventArgs e)
+        {
+
+            if (!decimal.TryParse(txtPrecio.Text, out decimal result))
+            {
+
+                txtPrecio.BackColor = Color.Red;
+                MessageBox.Show("Ingresar numero decimal");
+                txtPrecio.Text = string.Empty;
+
+            }
+            else
+            {
+                txtPrecio.BackColor = Color.White;
+            }
+
+        }
+        
+        private void txtCodigo_Leave(object sender, EventArgs e)
+        {
+            if(txtCodigo.Text == "")
+            {
+                txtCodigo.BackColor = Color.Red;
+
+            }
+            else
+            {
+                txtCodigo.BackColor = Color.White;
+            }
         }
     }
 }

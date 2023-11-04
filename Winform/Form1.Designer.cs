@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.dgvArticulos = new System.Windows.Forms.DataGridView();
             this.ptbImagen = new System.Windows.Forms.PictureBox();
             this.lblCampo = new System.Windows.Forms.Label();
@@ -47,7 +48,6 @@
             this.lblNombre = new System.Windows.Forms.Label();
             this.lblDescripcion = new System.Windows.Forms.Label();
             this.lblMarca = new System.Windows.Forms.Label();
-            this.lblCategoria = new System.Windows.Forms.Label();
             this.lblPrecio = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ptbImagen)).BeginInit();
@@ -139,12 +139,12 @@
             // 
             // btnRecargar
             // 
-            this.btnRecargar.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.btnRecargar.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnRecargar.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnRecargar.Location = new System.Drawing.Point(745, 62);
+            this.btnRecargar.BackColor = System.Drawing.SystemColors.Menu;
+            this.btnRecargar.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnRecargar.Image = ((System.Drawing.Image)(resources.GetObject("btnRecargar.Image")));
+            this.btnRecargar.Location = new System.Drawing.Point(740, 51);
             this.btnRecargar.Name = "btnRecargar";
-            this.btnRecargar.Size = new System.Drawing.Size(32, 30);
+            this.btnRecargar.Size = new System.Drawing.Size(37, 37);
             this.btnRecargar.TabIndex = 7;
             this.btnRecargar.UseVisualStyleBackColor = false;
             this.btnRecargar.Click += new System.EventHandler(this.btnRecargar_Click);
@@ -226,25 +226,19 @@
             // lblMarca
             // 
             this.lblMarca.AutoSize = true;
-            this.lblMarca.Location = new System.Drawing.Point(368, 302);
+            this.lblMarca.Location = new System.Drawing.Point(395, 272);
             this.lblMarca.Name = "lblMarca";
             this.lblMarca.Size = new System.Drawing.Size(0, 13);
             this.lblMarca.TabIndex = 18;
             // 
-            // lblCategoria
-            // 
-            this.lblCategoria.AutoSize = true;
-            this.lblCategoria.Location = new System.Drawing.Point(368, 342);
-            this.lblCategoria.Name = "lblCategoria";
-            this.lblCategoria.Size = new System.Drawing.Size(0, 13);
-            this.lblCategoria.TabIndex = 19;
-            // 
             // lblPrecio
             // 
             this.lblPrecio.AutoSize = true;
+            this.lblPrecio.BackColor = System.Drawing.SystemColors.Highlight;
+            this.lblPrecio.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPrecio.Location = new System.Drawing.Point(258, 419);
             this.lblPrecio.Name = "lblPrecio";
-            this.lblPrecio.Size = new System.Drawing.Size(0, 13);
+            this.lblPrecio.Size = new System.Drawing.Size(0, 22);
             this.lblPrecio.TabIndex = 20;
             // 
             // Form1
@@ -253,7 +247,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 458);
             this.Controls.Add(this.lblPrecio);
-            this.Controls.Add(this.lblCategoria);
             this.Controls.Add(this.lblMarca);
             this.Controls.Add(this.lblDescripcion);
             this.Controls.Add(this.lblNombre);
@@ -273,6 +266,7 @@
             this.Controls.Add(this.lblCampo);
             this.Controls.Add(this.ptbImagen);
             this.Controls.Add(this.dgvArticulos);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(816, 497);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -306,7 +300,6 @@
         private System.Windows.Forms.Label lblNombre;
         private System.Windows.Forms.Label lblDescripcion;
         private System.Windows.Forms.Label lblMarca;
-        private System.Windows.Forms.Label lblCategoria;
         private System.Windows.Forms.Label lblPrecio;
     }
 }

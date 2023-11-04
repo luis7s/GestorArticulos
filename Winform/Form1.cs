@@ -39,6 +39,7 @@ namespace Winform
                 dgvArticulos.DataSource = listaArticulo;
                 ocultarColumnas();
                 cargarImagen(listaArticulo[0].UrlImagen);
+                dgvArticulos.Columns["Precio"].DefaultCellStyle.Format = "N2";
             }
             catch (Exception ex)
             {
@@ -84,6 +85,7 @@ namespace Winform
                 lblCodigo.Text = "Codigo: " + seleccionado.CodigoArticulo;
                 lblNombre.Text = seleccionado.Nombre;
                 lblDescripcion.Text = seleccionado.Descripcion;
+
                 lblMarca.Text = "Marca: " + seleccionado.Marca.Descripcion.ToString();
                 lblPrecio.Text = "$ " + seleccionado.Precio.ToString("0.00");
 
@@ -259,7 +261,6 @@ namespace Winform
                 MessageBox.Show(ex.ToString());
             }
         }
-
 
     }
 }
