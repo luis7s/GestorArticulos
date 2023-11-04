@@ -15,6 +15,7 @@ namespace Winform
     public partial class Form1 : Form
     {
         private List<Articulo> listaArticulo;
+
         public Form1()
         {
             InitializeComponent();
@@ -69,7 +70,48 @@ namespace Winform
                 Articulo seleccionado;
                 seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
                 cargarImagen(seleccionado.UrlImagen);
+                verDetalle(seleccionado);
+
             }
+
+        }
+
+        private void verDetalle(Articulo seleccionado)
+        {
+            try
+            {
+
+                lblCodigo.Text = "Codigo: " + seleccionado.CodigoArticulo;
+                lblNombre.Text = seleccionado.Nombre;
+                lblDescripcion.Text = seleccionado.Descripcion;
+                lblMarca.Text = "Marca: " + seleccionado.Marca.Descripcion.ToString();
+                lblPrecio.Text = "$ " + seleccionado.Precio.ToString("0.00");
+
+                
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        private void NoVerDetalles()
+        {
+            try
+            {
+                lblCodigo.Text = "";
+                lblNombre.Text = "";
+                lblDescripcion.Text = "";
+                lblMarca.Text = "";
+                lblPrecio.Text = "";
+                ptbImagen.Load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBQaH0iL3i2SDCvG3iUUbh6BrYFagdbZ1varZBiLzx34AzdukVCcI-cA4HgZXC7wuD7is&usqp=CAU");
+            }
+            catch (Exception ex)
+            {
+
+                throw ex; 
+            }
+            
         }
 
         private void cboCampo_SelectedIndexChanged(object sender, EventArgs e)
@@ -109,6 +151,16 @@ namespace Winform
                 criterio = cboCriterio.SelectedItem.ToString();
                 filtro = txtFiltro.Text;
                 dgvArticulos.DataSource = negocio.filtrar(campo, criterio, filtro);
+
+                if (dgvArticulos.RowCount == 0)
+                {
+
+                    NoVerDetalles();
+
+                    MessageBox.Show("No se encontraron resultados");
+
+
+                }
 
             }
             catch (Exception ex)
@@ -207,5 +259,7 @@ namespace Winform
                 MessageBox.Show(ex.ToString());
             }
         }
+
+
     }
 }
