@@ -10,12 +10,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Configuration;
+using System.IO;
 
 namespace Winform
 {
     public partial class Form2 : Form
     {
         private Articulo articulo = null;
+        private OpenFileDialog archivo = null;
         public Form2()
         {
             InitializeComponent();
@@ -51,17 +54,18 @@ namespace Winform
                 articulo.Precio = decimal.Parse(txtPrecio.Text);
 
                 if(txtCodigo.BackColor != Color.Red)
-                {
-                    if (articulo.Id != 0)
-                    {
+                {              
 
+                    if (articulo.Id != 0)
+                    { 
                         negocio.modificar(articulo);
+                        guardarImagen();
                         Close();
                     }
                     else
                     {
                         negocio.agregar(articulo);
-
+                        guardarImagen();
                         Close();
                     }
                 }
@@ -73,10 +77,9 @@ namespace Winform
 
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                txtPrecio.BackColor = Color.Red;
-                MessageBox.Show("Ingrese datos obligatorios");
+                MessageBox.Show(ex.ToString());
 
             }
         }
@@ -136,6 +139,11 @@ namespace Winform
         private void txtPrecio_Leave(object sender, EventArgs e)
         {
 
+            validarPrecio();
+        }
+        public void validarPrecio()
+        {
+
             if (!decimal.TryParse(txtPrecio.Text, out decimal result))
             {
 
@@ -148,7 +156,6 @@ namespace Winform
             {
                 txtPrecio.BackColor = Color.White;
             }
-
         }
         
         private void txtCodigo_Leave(object sender, EventArgs e)
@@ -162,6 +169,29 @@ namespace Winform
             {
                 txtCodigo.BackColor = Color.White;
             }
+        }
+
+        private void btnAgregarImagen_Click(object sender, EventArgs e)
+        {
+            archivo = new OpenFileDialog();
+            archivo.Filter = "png|*.png|jpg|*.jpg";
+            if(archivo.ShowDialog() == DialogResult.OK)
+            {
+                txtUrlImagen.Text = archivo.FileName;
+                cargarImagen(archivo.FileName);
+            }
+
+        }
+        private void guardarImagen()
+        {
+            if (archivo != null && !(txtUrlImagen.Text.ToUpper().Contains("HTTP")))
+            {
+ 
+              File.Copy(archivo.FileName, ConfigurationManager.AppSettings["imagenes"] + archivo.SafeFileName);
+      
+                
+            }
+                
         }
     }
 }

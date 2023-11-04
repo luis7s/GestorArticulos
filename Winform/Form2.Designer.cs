@@ -213,6 +213,7 @@
             this.btnAgregarImagen.Size = new System.Drawing.Size(44, 38);
             this.btnAgregarImagen.TabIndex = 17;
             this.btnAgregarImagen.UseVisualStyleBackColor = false;
+            this.btnAgregarImagen.Click += new System.EventHandler(this.btnAgregarImagen_Click);
             // 
             // Form2
             // 
